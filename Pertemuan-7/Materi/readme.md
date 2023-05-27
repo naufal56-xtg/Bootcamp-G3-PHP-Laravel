@@ -2,6 +2,6 @@
 
 Ini Adalah Test Gambar
 
-...php
+```php
 php test
-...
+```
