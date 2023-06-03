@@ -41,7 +41,7 @@
     </nav>
 
     <content>
-        <div class="container mt-5">
+        <div class="container-fluid mt-5">
             <h1>
                 Selamat Datang Di Library Buku
             </h1>
@@ -66,12 +66,22 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>1</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi, velit?</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
                         <td>
                             <button class="btn btn-warning">
-                                <i class="fa fa-pencil"></i>
+                                <i class="fa fa-pencil-alt"></i>
                             </button>
+                            <form action="" class="d-inline-block">
+                                <a class="btn btn-danger">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </form>
                         </td>
-                        <td></td>
+
                     </tr>
                 </tbody>
             </table>
