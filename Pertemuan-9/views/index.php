@@ -1,61 +1,24 @@
 <?php
 
-require_once('./db.php');
-
-function getData()
-{
-    global $con, $getQuery;
-    $getQuery = mysqli_query($con, "SELECT * FROM books");
-}
-
-getData();
+require_once "../controllers/controller.php";
 
 
-if (isset($_POST['submit'])) {
-    $nama_buku = $_POST['nama_buku'];
-    $judul = $_POST['judul'];
-    $tema = $_POST['tema'];
-    $email = $_POST['email'];
+$books = new Controllers();
 
-    $queryInsert = mysqli_query($con, "INSERT INTO books (nama_buku, judul, tema, email) VALUES ('$nama_buku', '$judul', '$tema', '$email')");
-
-    if ($queryInsert) {
-        getData();
-    } else {
-        echo "Error" . mysqli_error($con);
-    }
-}
+$id_buku = $_POST['id_update'];
+$nama_buku = $_POST['nama_buku'];
+$judul = $_POST['judul'];
+$tema = $_POST['tema'];
+$email = $_POST['email'];
 
 if (isset($_POST['update'])) {
-    $id_update = $_POST['id_update'];
-    $nama_buku = $_POST['nama_buku'];
-    $judul = $_POST['judul'];
-    $tema = $_POST['tema'];
-    $email = $_POST['email'];
-
-    $queryUpdate = mysqli_query($con, "UPDATE books SET nama_buku='$nama_buku', judul='$judul', tema='$tema', email='$email' WHERE id_buku='$id_update'");
-
-    if ($queryUpdate) {
-        getData();
-    } else {
-        echo "Error" . mysqli_error($con);
-    }
-}
-
-
-if (isset($_POST['delete'])) {
+    $books->update($id_buku, $nama_buku, $judul, $tema, $email);
+} else if (isset($_POST['submit'])) {
+    $books->insert($nama_buku, $judul, $tema, $email);
+} else if (isset($_POST['delete'])) {
     $id_buku = $_POST['id_buku'];
-
-    $queryDelete = mysqli_query($con, "DELETE FROM books WHERE id_buku='$id_buku'");
-
-    if ($queryDelete) {
-        getData();
-    } else {
-        echo "Error" . mysqli_error($con);
-    }
+    $books->delete($id_buku);
 }
-
-
 
 
 
@@ -127,7 +90,7 @@ if (isset($_POST['delete'])) {
                 </thead>
                 <tbody class="text-center">
                     <?php $index = 1; ?>
-                    <?php while ($buku = mysqli_fetch_assoc($getQuery)) { ?>
+                    <?php foreach ($books->view() as $buku) { ?>
                         <tr>
                             <td><?= $index++; ?></td>
                             <td><?= $buku['nama_buku']; ?></td>

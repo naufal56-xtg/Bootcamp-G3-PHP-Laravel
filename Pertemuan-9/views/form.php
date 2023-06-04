@@ -1,6 +1,8 @@
 <?php
+require_once('../controllers/controller.php');
 
-require_once('./db.php');
+
+$book = new Controllers();
 
 $judul = $_GET['judul'];
 if (isset($judul)) {
@@ -12,14 +14,7 @@ if (isset($judul)) {
 
 $id_buku = $_GET['id_buku'];
 
-$query = mysqli_query($con, "SELECT * FROM books WHERE id_buku='$id_buku'");
-while ($data = mysqli_fetch_assoc($query)) {
-    $judul_buku = $data['judul'];
-    $nama_buku = $data['nama_buku'];
-    $tema_buku = $data['tema'];
-    $email_buku = $data['email'];
-}
-
+$book->edit($id_buku);
 
 ?>
 
@@ -42,34 +37,35 @@ while ($data = mysqli_fetch_assoc($query)) {
 
 
     <div class="container mt-5">
-        <h1><?= $judul; ?> Buku <?= $judul_buku; ?></h1>
+        <h1><?= $judul; ?> Buku <?= $book->judul_buku; ?></h1>
 
         <div class="col-md-6 mt-3">
+
             <form action="index.php" method="post">
-                <input type="hidden" name="id_update" value="<?= $id_buku; ?>">
+                <input type="hidden" name="id_update" value="<?= $book->id_buku; ?>">
                 <div class="mb-3">
                     <label for="nama_buku">Nama Buku</label>
-                    <input type="text" class="form-control" name="nama_buku" value="<?= $nama_buku; ?>">
+                    <input type="text" class="form-control" name="nama_buku" value="<?= $book->nama_buku; ?>">
                 </div>
                 <div class="mb-3">
                     <label for="judul">Judul Buku</label>
-                    <input type="text" class="form-control" name="judul" value="<?= $judul_buku; ?>">
+                    <input type="text" class="form-control" name="judul" value="<?= $book->judul_buku; ?>">
                 </div>
                 <div class="mb-3">
                     <label for="tema">Tema Buku</label>
                     <select name="tema" id="tema" class="form-control">
                         <option value="" hidden>- Silahkan Pilih Tema -</option>
-                        <option value="Action" <?= ($tema_buku == 'Action') ? 'selected' : '' ?>>Action</option>
-                        <option value="Fantasy" <?= ($tema_buku == 'Fantasy') ? 'selected' : '' ?>>Fantasy</option>
-                        <option value="Sci-Fi" <?= ($tema_buku == 'Sci-Fi') ? 'selected' : '' ?>>Sci-Fi</option>
-                        <option value="Romance" <?= ($tema_buku == 'Romance') ? 'selected' : '' ?>>Romance</option>
-                        <option value="Drama" <?= ($tema_buku == 'Drama') ? 'selected' : '' ?>>Drama</option>
-                        <option value="Thriler" <?= ($tema_buku == 'Thriler') ? 'selected' : '' ?>>Thriler</option>
+                        <option value="Action" <?= ($book->tema_buku == 'Action') ? 'selected' : '' ?>>Action</option>
+                        <option value="Fantasy" <?= ($book->tema_buku == 'Fantasy') ? 'selected' : '' ?>>Fantasy</option>
+                        <option value="Sci-Fi" <?= ($book->tema_buku == 'Sci-Fi') ? 'selected' : '' ?>>Sci-Fi</option>
+                        <option value="Romance" <?= ($book->tema_buku == 'Romance') ? 'selected' : '' ?>>Romance</option>
+                        <option value="Drama" <?= ($book->tema_buku == 'Drama') ? 'selected' : '' ?>>Drama</option>
+                        <option value="Thriler" <?= ($book->tema_buku == 'Thriler') ? 'selected' : '' ?>>Thriler</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="email">Email Buku</label>
-                    <input type="email" class="form-control" name="email" value="<?= $email_buku; ?>">
+                    <input type="email" class="form-control" name="email" value="<?= $book->email_buku; ?>">
                 </div>
 
                 <?php if ($judul == 'Edit') { ?>
