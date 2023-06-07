@@ -10,6 +10,7 @@
 
 <body>
     <h1>Ini Adalah Halaman About</h1>
+    <h2>Test</h2>
 </body>
 
 </html>
