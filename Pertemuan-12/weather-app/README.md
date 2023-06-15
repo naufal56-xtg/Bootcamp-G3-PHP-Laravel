@@ -1,6 +1,6 @@
 # weather-app
 
-[Gambar Web Cuaca]('./src/assets/Web Cuaca.png')
+![Gambar Web Cuaca](./src/assets/Web Cuaca.png)
 
 ## Project setup
 
