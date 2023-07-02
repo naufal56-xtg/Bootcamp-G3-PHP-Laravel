@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Ini Halaman Home</h1>
+    <h1>Home Pages</h1>
+    <hr>
     <div class="d-flex gap-4">
       <div class="card" v-for="data in datas" :key="data.id" style="width: 18rem;">
         <div class="cover-image">

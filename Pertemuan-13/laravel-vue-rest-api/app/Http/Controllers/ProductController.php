@@ -78,7 +78,7 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'nama' => 'required|string',
-            'foto' => 'required|image|max:2048',
+            'foto' => 'nullable',
             'harga' => 'required|numeric',
             'desc' => 'nullable',
             'qty' => 'required|numeric',
@@ -86,6 +86,13 @@ class ProductController extends Controller
         $products = Product::find($id);
 
         if ($request->hasFile('foto')) {
+            $data = $request->validate([
+                'nama' => 'required|string',
+                'foto' => 'nullable|image',
+                'harga' => 'required|numeric',
+                'desc' => 'nullable',
+                'qty' => 'required|numeric',
+            ]);
 
             if (!empty($products->foto)) {
                 $pathImage = public_path('images/' .  $products->foto);
