@@ -2,8 +2,8 @@
   <div>
     <h1>Home Pages</h1>
     <hr>
-    <div class="d-flex gap-4">
-      <div class="card" v-for="data in datas" :key="data.id" style="width: 18rem;">
+    <div class="d-flex produk">
+      <div class="card" v-for="data in datas" :key="data.id" style="width: 270px;">
         <div class="cover-image">
           <img :src="'http://localhost:8000/images/' + data.foto" class="card-img-top" :alt="data.nama" />
         </div>
@@ -39,6 +39,12 @@ export default {
 </script>
 
 <style scoped>
+.produk {
+  justify-content: start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .cover-image {
   width: 100%;
   height: 150px;

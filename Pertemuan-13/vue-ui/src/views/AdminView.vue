@@ -33,7 +33,7 @@
                   <div class="col-md-12">
                     <div class="form-group mb-3">
                       <label for="gambar" class="mb-2">Gambar Produk</label>
-                      <input type="file" class="form-control" placeholder="Input Gambar Produk" @change="upload2">
+                      <input type="file" class="form-control" placeholder="Input Gambar Produk" @change="upload">
                       <div v-if="foto">
                         <img :src="'http://localhost:8000/images/' + foto" class="previewImage mt-3">
                       </div>
@@ -143,6 +143,9 @@
 
 <script>
 import axios from 'axios';
+import { useToast } from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+
 export default {
   name: 'HomeView',
   data() {
@@ -174,12 +177,9 @@ export default {
       this.previewImage = URL.createObjectURL(this.foto);
     },
 
-    upload2(e) {
-      this.foto = e.target.files[0];
-      this.previewImage = URL.createObjectURL(this.foto);
-    },
-
     addProduct() {
+      const $toast = useToast();
+
       let formData = new FormData();
       formData.append('nama', this.nama);
       formData.append('harga', this.harga);
@@ -187,25 +187,35 @@ export default {
       formData.append('desc', this.desc);
       formData.append('foto', this.foto);
 
+
       axios.post('http://localhost:8000/api/products/store', formData, {
         Headers: {
           'Content-Type': 'multipart/form-data'
         }
-      }).then(() => {
+      }).then((response) => {
         this.getProduct();
         this.nama = '';
         this.desc = '';
         this.harga = 0;
         this.qty = 0;
         this.foto = '';
+        $toast.success(response.data.msg, {
+          position: 'top-right',
+          duration: 3000,
+        });
       }).catch((error) => {
         console.log(error);
       });
     },
 
     deleteProduct(id) {
-      axios.delete('http://localhost:8000/api/products/delete/' + id).then(() => {
+      const $toast = useToast();
+      axios.delete('http://localhost:8000/api/products/delete/' + id).then((response) => {
         this.getProduct();
+        $toast.success(response.data.msg, {
+          position: 'top-right',
+          duration: 3000,
+        });
       }).catch((error) => {
         console.log(error);
       });
@@ -225,6 +235,7 @@ export default {
     },
 
     updateProduct(id, foto) {
+      const $toast = useToast();
       let formData = new FormData();
       formData.append('nama', this.nama);
       formData.append('harga', this.harga);
@@ -236,7 +247,7 @@ export default {
         Headers: {
           'Content-Type': 'multipart/form-data'
         }
-      }).then(() => {
+      }).then((response) => {
         this.getProduct();
         this.nama = '';
         this.desc = '';
@@ -244,6 +255,10 @@ export default {
         this.qty = 0;
         this.editId = 0;
         this.foto = null;
+        $toast.success(response.data.msg, {
+          position: 'top-right',
+          duration: 3000,
+        });
       }).catch((error) => {
         console.log(error);
       });

@@ -41,7 +41,7 @@ class ProductController extends Controller
         $products->delete();
 
         return response()->json([
-            'msg' => 'Product Berhasil Ditampilkan',
+            'msg' => 'Product Berhasil Dihapus',
             'status' => 200,
             'data' => $products
         ]);
@@ -68,7 +68,7 @@ class ProductController extends Controller
         $products = Product::create($data);
 
         return response()->json([
-            'msg' => 'Product Berhasil Ditampilkan',
+            'msg' => 'Product Berhasil Tambahkan',
             'status' => 200,
             'data' => $products
         ]);
@@ -111,7 +111,7 @@ class ProductController extends Controller
         $products->update($data);
 
         return response()->json([
-            'msg' => 'Product Berhasil Ditampilkan',
+            'msg' => 'Product Berhasil Diubah',
             'status' => 200,
             'data' => $products
         ]);
